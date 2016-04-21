@@ -18,8 +18,16 @@ namespace MongoDemo.Console
                 username, passwd, server, port);
             System.Console.WriteLine(connectionString);
             var client = new MongoClient(connectionString);
-            var databases = client.ListDatabases();
-            
+
+            //list databases
+            using (var cursor = client.ListDatabases())
+            {
+                foreach (var doc in cursor.ToEnumerable())
+                {
+                    System.Console.WriteLine(doc.ToString());
+                }
+            }
+
             var database = client.GetDatabase(dbName);
 
             var document = new BsonDocument
