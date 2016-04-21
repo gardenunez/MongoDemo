@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
+using System.Configuration;
 
 namespace MongoDemo.Console
 {
@@ -9,10 +10,10 @@ namespace MongoDemo.Console
         static void Main(string[] args)
         {
             string dbName = "XXXX";
-            string username = "XXXX";
-            string passwd = "XXXX";
-            string server = "XXXX";
-            int port = 0;
+            string username = ConfigurationManager.AppSettings["mongo-user"];
+            string passwd = ConfigurationManager.AppSettings["mongo-pass"]; ;
+            string server = ConfigurationManager.AppSettings["mongo-server"]; ;
+            int port = int.Parse( ConfigurationManager.AppSettings["mongo-port"] ) ;
 
             string connectionString = string.Format("mongodb://{0}:{1}@{2}:{3}",
                 username, passwd, server, port);
